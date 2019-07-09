@@ -7,4 +7,4 @@ title:  "SQL Managed Instance"
 
 ## Cost
 
-![cost](../assets/cost.png)
+![cost](/assets/cost.png)

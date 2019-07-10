@@ -19,12 +19,14 @@ ASE も同じだが、VNet Injection の PaaS はかなり時間がかかると�
 
 ## Deliverables
 
-Deploy の結果作成されるもの。今回は全く新しい環境に作成したので VNet から NSG、Route Table も作成されてる。中心的なものは Virtual Cluster と SQL Managed Instance かなと。Virtual Cluster はなかなか見慣れないものが作成されている。その他に標準で見えていないもの（非表示の型の表示で出る）は networkIntentPolicies というのがあって、これによって Route Table と NSG がある subnet に確実に適用されるように制限されているみたい。
+Deploy の結果作成されるもの。今回は全く新しい環境に作成したので VNet から NSG、Route Table も作成されてる。中心的なものは Virtual Cluster と SQL Managed Instance かなと。Virtual Cluster はなかなか見慣れないものが作成されている。その他に標準で見えていないリソース（非表示の型の表示で出る）は networkIntentPolicies というのがあって、これによって Route Table と NSG がある subnet に確実に適用されるように制限されているみたい。
 
 ![deliverables](/assets/deliverables.png)
 
 ## Route Table
 
-作成された Route Table の中身はこんな感じ。なんとなく隠したほうがいいと思って Blur をかけたんだが、普通に [docs](https://docs.microsoft.com/ja-jp/azure/sql-database/sql-database-managed-instance-connectivity-architecture#user-defined-routes) に載ってた。
+作成された Route Table の中身はこんな感じ。なんとなく隠したほうがいいと思って blur をかけたんだが、普通に [docs](https://docs.microsoft.com/ja-jp/azure/sql-database/sql-database-managed-instance-connectivity-architecture#user-defined-routes) に載ってた。正確に言うと、これ以外に SqlManagement_automation_backup、SqlManagement_controlPlane_az01、SqlManagement_security_primary といった Route も追加されている。これは作成した SQL Managed Instance によって異なるから docs に書かれていないのかもしれない。
 
 ![route-table](/assets/route-table.png)
+
+Route Table に対して、強制トンネリングのための Default Route（0.0.0.0/0）を追加することはできるが、既存の mi-103-25-156-22-nexthop-internet といった Route を消そうとすると networkIntentPolicies のエラーが出ることになる。もともと Route Table がある状態で SQL Managed Instance を作成した場合にどう整合性をとるのかは検証していない。

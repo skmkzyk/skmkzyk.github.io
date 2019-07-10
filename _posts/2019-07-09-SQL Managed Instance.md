@@ -25,7 +25,7 @@ Deploy の結果作成されるもの。今回は全く新しい環境に作成�
 
 ## Route Table
 
-作成された Route Table の中身はこんな感じ。なんとなく隠したほうがいいと思って blur をかけたんだが、普通に [docs](https://docs.microsoft.com/ja-jp/azure/sql-database/sql-database-managed-instance-connectivity-architecture#user-defined-routes) に載ってた。正確に言うと、これ以外に SqlManagement_automation_backup、SqlManagement_controlPlane_az01、SqlManagement_security_primary といった Route も追加されている。これは作成した SQL Managed Instance によって異なるから docs に書かれていないのかもしれない。
+作成された Route Table の中身はこんな感じ。なんとなく隠したほうがいいと思って blur をかけたんだが、普通に [docs](https://docs.microsoft.com/azure/sql-database/sql-database-managed-instance-connectivity-architecture#user-defined-routes) に載ってた。正確に言うと、これ以外に SqlManagement_automation_backup、SqlManagement_controlPlane_az01、SqlManagement_security_primary といった Route も追加されている。これは作成した SQL Managed Instance によって異なるから docs に書かれていないのかもしれない。
 
 ![route-table](/assets/route-table.png)
 

@@ -22,3 +22,9 @@ ASE も同じだが、VNet Injection の PaaS はかなり時間がかかると�
 Deploy の結果作成されるもの。今回は全く新しい環境に作成したので VNet から NSG、Route Table も作成されてる。中心的なものは Virtual Cluster と SQL Managed Instance かなと。Virtual Cluster はなかなか見慣れないものが作成されている。その他に標準で見えていないもの（非表示の型の表示で出る）は networkIntentPolicies というのがあって、これによって Route Table と NSG がある subnet に確実に適用されるように制限されているみたい。
 
 ![deliverables](/assets/deliverables.png)
+
+## Route Table
+
+作成された Route Table の中身はこんな感じ。なんとなく隠したほうがいいと思って Blur をかけたんだが、普通に [docs](https://docs.microsoft.com/ja-jp/azure/sql-database/sql-database-managed-instance-connectivity-architecture#user-defined-routes) に載ってた。
+
+![route-table](/assets/route-table.png)

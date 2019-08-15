@@ -20,6 +20,6 @@ title:  "Web Apps Scale Out"
 
 # Reference
 
-https://www.w3schools.com/asp/coll_servervariables.asp にどんな環境変数が使えるか書いてある。
+[https://www.w3schools.com/asp/coll_servervariables.asp](https://www.w3schools.com/asp/coll_servervariables.asp) にどんな環境変数が使えるか書いてある。
 書き方はこのリンクに書いてある形式じゃなくて、上に書いてある感じにする。
 ``<%=`` で始めるか ``<%`` かどうかでなんか違うんだろう

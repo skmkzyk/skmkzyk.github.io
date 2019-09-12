@@ -13,7 +13,7 @@ Azure の各種サービスを操作するにあたって Azure Portal がもち
 ## REST API for Storage Account
 
 で、今回はその中でも Storage Account に関する REST API を試していて、ちょっと難しい点があったんのでメモしておきます。
-API を叩くのには信頼と実績の Postman (ref. https://www.getpostman.com/) を使っています。
+API を叩くのには信頼と実績の Postman (ref. [Postman](https://www.getpostman.com/)) を使っています。
 
 ## ハマりポイント
 
@@ -26,7 +26,7 @@ API を叩くのには信頼と実績の Postman (ref. https://www.getpostman.co
 
 ## `Authorization` header の組み立て方
 
-例えば Pub Blob の REST API を見てみます。(ref. https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob)
+例えば Pub Blob の REST API を見てみます。([Put Blob](https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob))
 URL をどう構成するか、HTTP header をどう構成するかを参考にするのですが、その中でもはまったのが `Authorization` header でした。
 
 > Required. Specifies the authentication scheme, account name, and signature. For more information, see [Authentication for the Azure Storage Services](https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key).
@@ -78,7 +78,7 @@ blob.core.windows.net という文字列を除く感じですね、ざっくり�
 > Next, encode this string by using the HMAC-SHA256 algorithm over the UTF-8-encoded signature string, construct the `Authorization` header, and add the header to the request. The following example shows the `Authorization` header for the same operation:
 
 とざっくり書いてある。
-最後に書いてわかりづらいんだけど pseudocode はここに書いてある。(ref. https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key#encoding-the-signature)
+最後に書いてわかりづらいんだけど pseudocode はここに書いてある。([Encoding the Signature](https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key#encoding-the-signature))
 
 言いたいことは分かるものの、これを Postman でどうやるのかがわからなくて悩んでいたんですが、結果から言うと Pre-request Script というのを使います。
 結果を先に示しておきますが、こんな感じの script を Postman の Pre-request Script に書きます。

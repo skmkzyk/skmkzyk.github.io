@@ -21,6 +21,15 @@ Cost かかるんかなぁ、と思ったらかかるみたいです。
 
 ![Cost](/assets/private-link-cost.png)
 
+そういえば VNet Peering 経由で使うのと Cost どれくらい違うんだろうね、という話になったので雑な計算をしてみた結果がこちら。
+想定としては、Global VNet Peering を Japan East と Japan West 間で利用した場合の想定です。
+
+![Cost Conparison - VNet Peering](/assets/private-link-cost-comparison.png)
+
+たぶんあってると思うんだけど、間違ってたらごめんなさい。
+全体のコストからみれば大したことはないんだろうけど、Global VNet Peering が Traffic 関連の Cost としては高めに見えますね。
+広帯域で通信ができること、Region 間の通信がある程度 Secure (Microsoft Backbone を出ていない) というメリットは大きいですが、TB クラスの通信を Japan East/Japan West 間でやるようであれば気になるかもしれないです。
+
 ## Route
 
 Private Link って結局 subnet に所属してるので、特に追加の Route は差し込まれないかと思ったら /32 が追加されてた。
@@ -53,9 +62,34 @@ Private DNS Zone が紐づいている VNet #1 と紐づいてない VNet #2 を
 もちろん、VNet 同士は何らかの方法で接続する必要はありますが。
 
 その状態で、遊んでみようということで、VNet の外側から hoge.privatelink.database.windows.net. を叩くと、適宜 CNAME で曲がって、ちゃんと Public IP アドレスに解決されます。
-まぁ、実際にこれを使う場面はないですが、ちゃんとしてますね、という確認までに。
+実際にこれを使う場面はないですが、ちゃんとしてますね、という確認までに。
 
 ![nslookup](/assets/private-link-nslookup.png)
+
+### Multiple Private Endpoint deploy
+
+Private Endpoint を複数 deploy するとどうなるんかねという確認を。
+Private DNS Zone Integration を有効にしてもう一つ Private Endpoint を作成したので、A Record が複数行になります。
+
+![Mutiple A Record](/assets/private-link-multiple-a-record.png)
+
+それに対して sqlcmd がどういう動きをするか軽く確認しておくと、適当にどっちも使うみたいです。
+同じ Subnet であればそっちが優先される可能性もなくはないですが、今回の環境がそうではなかったのでクリアにはならず。
+
+![Multiple DNS Response](/assets/private-link-multiple-dns-response.png)
+
+### VPN Peering
+
+Site-to-site VPN で VNet #1 (Azure 環境を想定) と VNet #3 (On-Prem 環境を想定) をつないでみて、どういう設定にしたら Private Link が使いやすいかなぁと考えてみます。
+
+もちろん、実際には Azure 環境なので 168.63.129.16 に飛ばしちゃうのが早いんですが、それだと On-Prem 環境を想定した意味がないので、Windows Server で DNS を立てたうえで、Forwader は 8.8.8.8 を設定します。
+で、Conditional Forwader として SQL Server の FQDN そのものを指定し、longest match で VNet #1 側の DNS サーバ (Windows Server) に飛ばしてみました。
+意図どおりには動いたので、168.63.129.16 が使えない On-Prem からはこの方法が Best Practice になるのかなぁと。
+
+![Conditional Forwarder](/assets/private-link-conditional-forwarder-peer.png)
+
+思えば AD DS と DNS サーバで切り離して考えられること、Conditional Forwader は DNS サーバ単位で設定できること (で、それを Forest に Replicate できる、ってだけ)、とかをちゃんと考えたことがなかったなと思いましたね。
+DNS サーバの指定をするのは手動か DHCP なわけで、その観点では AD DS とは実は切り離して考えられるとか、Conditional Forwader を On-Prem の DNS サーバにだけ Replicate するってのはできるんかなぁとか、実際に社内インフラ的な意味で AD DS、DNS サーバを立てたことはないので知見が足りないなと感じました。
 
 ## ARM Template
 
@@ -105,4 +139,12 @@ DNS 名ではもちろん普通にアクセスはできます。
 ![SQL Database - private IP](/assets/private-link-sql-database-private-ip.png)
 
 VNet Peering した状態で、hosts を書けば SQL Database に Private IP Address で接続できます。
+
+### Multiple SQL Database deploy
+
+SQL Database を複数 deploy して、SQL Server 1 つにぶら下げた場合でも、Private Link は 1 つで接続できます。
+そうかなという動きではありますが、念のため確認しました。
+
+![Two SQL Database](/assets/private-link-two-sql-database.png)
+
 AD DS 立てて、S2S VPN で接続した形、より On-Prem <-> Azure っぽい検証はまた後日やります。

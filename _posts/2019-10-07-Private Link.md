@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Private Link"
-image: "/assets/private-endpoint.png"
+image: "/assets/private-link-center.png"
 ---
 
 # Private Link についていろいろ調べてみた

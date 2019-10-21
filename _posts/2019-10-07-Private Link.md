@@ -30,6 +30,7 @@ Cost かかるんかなぁ、と思ったらかかるみたいです。
 たぶんあってると思うんだけど、間違ってたらごめんなさい。
 全体のコストからみれば大したことはないんだろうけど、Global VNet Peering が Traffic 関連の Cost としては高めに見えますね。
 広帯域で通信ができること、Region 間の通信がある程度 Secure (Microsoft Backbone を出ていない) というメリットは大きいですが、TB クラスの通信を Japan East/Japan West 間でやるようであれば気になるかもしれないです。
+一方で、VNet Peering はつないでしまえばあらゆるサービスが通信できるのに対して、Private Endpoint は resource ごとにお金がかかるのでそのトレードオフかなと。
 
 ## Route
 

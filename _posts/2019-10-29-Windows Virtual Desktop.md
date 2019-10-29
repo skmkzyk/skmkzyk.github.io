@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Private Link"
+title: "Windows Virtual Desktop"
 ---
 
 # Windows Virtual Desktop

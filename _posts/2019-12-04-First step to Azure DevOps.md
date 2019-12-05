@@ -5,7 +5,9 @@ title: "First step to Azure DevOps"
 
 ## First step to Azure DevOps
 
-こちらは Microsoft Azure Tech Advent Calendar 2019 の 4 日目です。
+こちらは [Microsoft Azure Tech Advent Calendar 2019](https://qiita.com/advent-calendar/2019/microsoft-azure-tech) の 4 日目です。
+Qiita ではなく GitHub Pages で書いているので、上のリンクを踏んでいただいて、ぜひほかのメンバのも見ていただければと！！
+
 内容としては、先日 Azure DevOps の bootcamp に参加してきたので、それを踏まえて、すでに Azure Portal で deploy した環境を DevOps にどう移すか、みたいなところを考えていこうかなと思っています。
 
 ## Deploy options
@@ -309,3 +311,7 @@ Azure DevOps を最初っから使い始めるわけではなく、今ある環�
 
     Azure から払い出される Public IP アドレスも resource として存在します。
     NIC と紐づけることで利用でき、Public IP アドレス経由で RDP/SSH させるような際に利用したりします。
+
+## Changelog
+
+- もとの Advent Calendar へのリンクがないとの天啓を受けたので修正 (2019-12-05)

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Secure SQL Database connection from Web Apps by Private Endpoint"
+image: "/assets/thumbnail-web-apps-sql-database-private-endpoint.png"
 ---
 
 ## Prerequisites

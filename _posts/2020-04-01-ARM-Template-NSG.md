@@ -4,7 +4,8 @@ title: "ARM Template for Network Security Group"
 ---
 
 ## See Also
-{% post_url 2019-12-04-First step to Azure DevOps %}
+DevOps までやりきるのであればこちらに同じように ARM Template から移行する手順が書いてあります。
+[First step to Azure DevOps]({% post_url 2019-12-04-First step to Azure DevOps %})
 
 ## Prerequisites
 

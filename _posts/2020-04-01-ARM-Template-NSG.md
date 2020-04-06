@@ -3,6 +3,9 @@ layout: post
 title: "ARM Template for Network Security Group"
 ---
 
+## See Also
+{% post_url 2019-12-04-First step to Azure DevOps %}
+
 ## Prerequisites
 
 前提知識として、NSG と ARM Template を書いておきます。

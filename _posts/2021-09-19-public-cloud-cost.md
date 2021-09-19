@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "パブリッククラウドのコストについて思うところ"
+title: "Public cloud cost"
 ---
 
 ## パブリッククラウド使って安くなるのかどうか
